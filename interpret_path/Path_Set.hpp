@@ -16,7 +16,8 @@ path_set::path_set()
 {
     //locationで設定されそうなパスをここに書いてね
     this->pathset.push_back("/sample/go");
-    this->pathset.push_back("/sample");
+    this->pathset.push_back("/sample/bianchi/towl");
+    this->pathset.push_back("/sample/go/ambulance");
 }
 
 std::vector<std::string>    path_set::get_pathset()

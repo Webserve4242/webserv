@@ -10,22 +10,31 @@
 //そのpathにあわせてpathsetから適切なpathを返すとする
 //この挙動をnginxに準拠させる
 
-std::string interpret_path(std::vector<std::string> set, std::string substring)
+std::string check_fullmatch(std::vector<std::string> set, std::string path)
 {
-    //完全一致するものがあるか確認
     std::vector<std::string>::iterator it = set.begin();
     while (it != set.end())
     {
-        if (*it == substring)
-            return (*it);
+        if (*it == path)
+            return ("FULL MATCH ! | " + *it);
         it++;
     }
-    return (" not matched ");
+    return ("");
+}
+
+std::string interpret_path(std::vector<std::string> set, std::string substring)
+{
+    std::string anser;
+    //完全一致するものがあるか確認
+    anser = check_fullmatch(set, substring);
+    if (anser != "")
+        return (anser);
+    return ("NOT MATCH");
 }
 
 int main()
 {
-    std::string subjectpath = "/sample";
+    std::string subjectpath = "/aaa";
     path_set set;
     std::cout << interpret_path(set.get_pathset(), subjectpath) << std::endl;
 }
