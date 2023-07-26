@@ -13,7 +13,14 @@
 std::string interpret_path(std::vector<std::string> set, std::string substring)
 {
     //完全一致するものがあるか確認
-    
+    std::vector<std::string>::iterator it = set.begin();
+    while (it != set.end())
+    {
+        if (*it == substring)
+            return (*it);
+        it++;
+    }
+    return (" not matched ");
 }
 
 int main()
