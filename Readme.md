@@ -35,7 +35,7 @@ location ^~ /sample/cinema/mayo {
             index  index.html index.htm;
         }
 
-	location /sample/cinema/mayo/fanta {
+	location /sample/cinema/mayo/fanta  {
             alias   samgogo;
             index  index.html index.htm;
         }
