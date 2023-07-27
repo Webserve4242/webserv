@@ -18,6 +18,7 @@ path_set::path_set()
     this->pathset.push_back("/sample/go");
     this->pathset.push_back("/sample/bianchi/towl");
     this->pathset.push_back("/sample/go/ambulance");
+    this->pathset.push_back("/");
 }
 
 std::vector<std::string>    path_set::get_pathset()
