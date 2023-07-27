@@ -5,6 +5,11 @@
 
 #include "Path_Set.hpp"
 
+typedef struct pair_s{
+    std::string location;
+    int         rank;
+}pair_t;
+
 //想定するケース
 //リクエストが飛んできたとき、pathの部分だけ取り外せたとする
 //そのpathにあわせてpathsetから適切なpathを返すとする
