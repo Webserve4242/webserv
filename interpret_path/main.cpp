@@ -46,7 +46,7 @@ std::string check_longestmatchpath(std::vector<std::string> set, std::string pat
         if ((*it).length() < path.length())
         {
             tmp_len = compare_twowords((*it), path);
-            if ((*it).length() == tmp_len && tmp_len > longestmatch_length)
+            if ((*it).length() == tmp_len && tmp_len >= longestmatch_length)
             {
                 longestmatch_length = tmp_len;
                 ans = (*it);
