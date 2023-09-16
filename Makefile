@@ -11,13 +11,18 @@ SRCS_DIR	=	srcs
 SRCS		=	main.cpp \
 				get_valid_config_file_path.cpp
 
+#debug
+DEBUG_DIR	=	Debug
+SRCS		+=	$(DEBUG_DIR)/Debug.cpp
+
 #error
 ERROR_DIR	=	Error
 SRCS		+=	$(ERROR_DIR)/Error.cpp
 
-#debug
-DEBUG_DIR	=	Debug
-SRCS		+=	$(DEBUG_DIR)/Debug.cpp
+#HttpResponse
+RESPONSE_DIR =	HttpResponse
+SRCS		+=	$(RESPONSE_DIR)/HttpResponse.cpp \
+				$(RESPONSE_DIR)/GET/get_request_body.cpp
 
 #socket
 SOCKET_DIR	=	Socket
@@ -37,6 +42,7 @@ DEPS		=	$(OBJS:%.o=%.d)
 INCLUDES_DIR =	includes \
 				$(SRCS_DIR)/$(DEBUG_DIR) \
 				$(SRCS_DIR)/$(ERROR_DIR) \
+				$(SRCS_DIR)/$(RESPONSE_DIR) \
 				$(SRCS_DIR)/$(SOCKET_DIR)
 
 INCLUDES	 =	$(addprefix -I, $(INCLUDES_DIR))

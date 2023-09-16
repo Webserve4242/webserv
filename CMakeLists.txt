@@ -34,6 +34,7 @@ include_directories(
         includes
         srcs/Debug
         srcs/Error
+        srcs/HttpResponse
         srcs/Socket
 )
 
@@ -42,6 +43,8 @@ set(webserv_srcs
         srcs/get_valid_config_file_path.cpp
         srcs/Debug/Debug.cpp
         srcs/Error/Error.cpp
+        srcs/HttpResponse/HttpResponse.cpp
+        srcs/HttpResponse/GET/get_request_body.cpp
         srcs/Socket/Socket.cpp
 )
 
