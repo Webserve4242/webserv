@@ -6,6 +6,9 @@
 namespace {
 	std::string RESPONSE_MSG = "GET / HTTP/1.1\r\n"
 							   "Host: 127.0.0.1\r\n"
+							   "Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5\r\n"
+							   "Accept-Language: en-US,en;q=0.5\r\n"
+							   // "Content-Length: 2147483648\r\n"
 							   "\r\n";
 	std::string SERVER_IP = "127.0.0.1";
 	std::string SERVER_PORT = "8080";

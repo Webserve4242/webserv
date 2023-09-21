@@ -11,7 +11,6 @@
 #include "webserv.hpp"
 #include "Color.hpp"
 #include "Client.hpp"
-#include "Debug.hpp"
 
 namespace {
 	const int ERROR = -1;
@@ -50,7 +49,7 @@ namespace {
 
 	void send_to_server(int connect_fd, const std::string &send_msg) {
 		ssize_t	send_size;
-		size_t	msg_len = send_msg.size() + 1;
+		size_t	msg_len = send_msg.size();
 		const char *msg = send_msg.c_str();
 
 		errno = 0;
@@ -66,6 +65,7 @@ namespace {
 		char		buf[BUFSIZ + 1];
 		std::string	recv_msg;
 
+		// receive header
 		while (true) {
 			errno = 0;
 			recv_size = recv(connect_fd, buf, BUFSIZ, 0);
@@ -73,12 +73,34 @@ namespace {
 				std::string err_str = "[Client Error] recv: " + std::string(strerror(errno));
 				throw std::runtime_error(RED + err_str + RESET);
 			}
+			if (recv_size == 0) {
+				break;
+			}
 			buf[recv_size] = '\0';
 			recv_msg += buf;
 			if (recv_size < BUFSIZ) {
 				break;
 			}
 		}
+
+		// receive body
+		while (true) {
+			errno = 0;
+			recv_size = recv(connect_fd, buf, BUFSIZ, 0);
+			if (recv_size == ERROR) {
+				std::string err_str = "[Client Error] recv: " + std::string(strerror(errno));
+				throw std::runtime_error(RED + err_str + RESET);
+			}
+			if (recv_size == 0) {
+				break;
+			}
+			buf[recv_size] = '\0';
+			recv_msg += buf;
+			if (recv_size < BUFSIZ) {
+				break;
+			}
+		}
+
 		// std::cout << "recv_size:" << recv_size << std::endl;
 		return recv_msg;
 	}
