@@ -38,6 +38,13 @@ include_directories(
         srcs/IOMultiplexer
         srcs/Server
         srcs/Socket
+        srcs/Config
+        srcs/Config/ConfigHandlingString
+        srcs/Config/IsConfigFormat
+        srcs/Config/AllConfig
+        srcs/Config/IsConfigFormat
+        srcs/Config/LocationConfig
+        srcs/Config/ServerConfig
 )
 
 # webserv_srcs -----------------------------------------------------------------
@@ -51,23 +58,40 @@ set(webserv_srcs
         srcs/Socket/Socket.cpp
         )
 
+set(config_srcs
+        srcs/HandlingString/HandlingString.cpp
+        srcs/NumericHandle/NumericHandle.cpp
+        srcs/Config/AllConfig/AllConfig.cpp
+        srcs/Config/ConfigHandlingString/ConfigHandlingString.cpp
+        srcs/Config/LocationConfig/LocationConfig.cpp
+        srcs/Config/ServerConfig/ServerConfig.cpp
+        srcs/Config/IsConfigFormat/IsConfigFormat.cpp
+        srcs/Config/Config.cpp
+)
+
 add_executable(webserv
         srcs/main.cpp
         ${webserv_srcs}
+        ${config_srcs}
         )
 
 # unit_test_srcs ---------------------------------------------------------------
 set (unit_test_srcs
         test/unit_test/is_valid_file_path/test_get_valid_config_file_path.cpp
+        test/unit_test/TestConfig.cpp
+        test/unit_test/TestError.cpp
         test/unit_test/TestResult.cpp
         test/unit_test/TestServer.cpp
         test/unit_test/TestSocket.cpp
-        test/unit_test/TestError.cpp
-        )
+        test/unit_test/TestIsConfigLineFormat.cpp
+        test/unit_test/TestConfigReading.cpp
+        test/unit_test/TestAddingUtils.cpp
+)
 
 add_executable(unit_test
         ${webserv_srcs}
         ${unit_test_srcs}
+        ${config_srcs}
         )
 
 # test -------------------------------------------------------------------------

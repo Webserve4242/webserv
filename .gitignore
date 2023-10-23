@@ -4,17 +4,22 @@
 !.github/*
 !.gitignore
 !config
+!error_config
 
 !srcs
 !srcs/Client
 !srcs/Debug
 !srcs/Error
-!srcs/Server
+!srcs/HandlingString
+!srcs/NumericHandle
 !srcs/Socket
+!srcs/Config
+!www
 !includes
 !playground
 !test
-!www
+!test/unit_test/
+!test/unit_test/*
 
 !*.conf
 !*.cpp
@@ -26,7 +31,7 @@
 !CPPLINT.cfg
 !CMakeLists.txt
 !Makefile
-!Readme.md
+
 !webserv.drawio
 
 .DS_Store
@@ -34,4 +39,5 @@
 .vscode
 client_response.txt
 CMakeCache.txt
+
 Dockerfile
