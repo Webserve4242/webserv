@@ -35,6 +35,7 @@ include_directories(
         srcs/Debug
         srcs/Error
         srcs/HttpResponse
+        srcs/IOMultiplexer
         srcs/Socket
 )
 
@@ -44,6 +45,11 @@ set(webserv_srcs
         srcs/Debug/Debug.cpp
         srcs/Error/Error.cpp
         srcs/HttpResponse/HttpResponse.cpp
+        srcs/IOMultiplexer/IOMultiplexer.cpp
+        srcs/HttpResponse/error_pages.cpp
+        srcs/HttpResponse/GET/get_directory_listing.cpp
+        srcs/HttpResponse/GET/get_cgi_result.cpp
+        srcs/HttpResponse/GET/get_file_content.cpp
         srcs/HttpResponse/GET/get_request_body.cpp
         srcs/HttpResponse/DELETE/DeleteHttpResponse/DeleteHttpResponse.cpp
         srcs/HttpResponse/DELETE/StatusText/StatusText.cpp
@@ -68,6 +74,10 @@ set (unit_test_srcs
         test/unit_test/TestError.cpp
         test/unit_test/TestResult.cpp
         test/unit_test/TestSocket.cpp
+        test/unit_test/HttpResponse/TestAutoIndex.cpp
+        test/unit_test/HttpResponse/TestCGI.cpp
+        test/unit_test/HttpResponse/TestGetInterpreter.cpp
+        test/unit_test/HttpResponse/TestGetRequestBody.cpp
         test/unit_test/TestInterpretPath.cpp
 )
 

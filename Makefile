@@ -8,27 +8,35 @@ CXXFLAGS	+=	-g -fsanitize=address,undefined -fno-omit-frame-pointer
 SRCS_DIR	=	srcs
 
 #main
-SRCS		=	main.cpp
-SRCS		+=	get_valid_config_file_path.cpp
+SRCS		=	main.cpp \
+				get_valid_config_file_path.cpp
 
 #debug
 DEBUG_DIR	=	Debug
 SRCS		+=	$(DEBUG_DIR)/Debug.cpp
 
-#response
-RESPONSE_DIR	=	HttpResponse
-RESPONSE_DELETE_DIR	=	HttpResponse/DELETE
-SRCS		+=	$(RESPONSE_DELETE_DIR)/DeleteHttpResponse/DeleteHttpResponse.cpp \
-				$(RESPONSE_DELETE_DIR)/StatusText/StatusText.cpp
 
 #error
 ERROR_DIR	=	Error
 SRCS		+=	$(ERROR_DIR)/Error.cpp
 
+#io
+IO_DIR		=	IOMultiplexer
+SRCS		+=	$(IO_DIR)/IOMultiplexer.cpp
+
 #HttpResponse
 RESPONSE_DIR =	HttpResponse
 SRCS		+=	$(RESPONSE_DIR)/HttpResponse.cpp \
+				$(RESPONSE_DIR)/error_pages.cpp \
+				$(RESPONSE_DIR)/GET/get_directory_listing.cpp \
+				$(RESPONSE_DIR)/GET/get_cgi_result.cpp \
+				$(RESPONSE_DIR)/GET/get_file_content.cpp \
 				$(RESPONSE_DIR)/GET/get_request_body.cpp
+
+RESPONSE_DELETE_DIR	= HttpResponse/DELETE
+SRCS		+=	$(RESPONSE_DELETE_DIR)/DeleteHttpResponse/DeleteHttpResponse.cpp \
+				$(RESPONSE_DELETE_DIR)/DeleteHttpResponse/get_location_path.cpp \
+				$(RESPONSE_DELETE_DIR)/StatusText/StatusText.cpp
 
 #socket
 SOCKET_DIR	=	Socket
@@ -48,7 +56,10 @@ DEPS		=	$(OBJS:%.o=%.d)
 INCLUDES_DIR =	includes \
 				$(SRCS_DIR)/$(DEBUG_DIR) \
 				$(SRCS_DIR)/$(ERROR_DIR) \
+				$(SRCS_DIR)/$(IO_DIR) \
 				$(SRCS_DIR)/$(RESPONSE_DIR) \
+				$(SRCS_DIR)/$(RESPONSE_DELETE_DIR)/DeleteHttpResponse \
+				$(SRCS_DIR)/$(RESPONSE_DELETE_DIR)/StatusText \
 				$(SRCS_DIR)/$(SOCKET_DIR)
 
 INCLUDES	 =	$(addprefix -I, $(INCLUDES_DIR))
@@ -124,5 +135,28 @@ run_interpret_path_test	:
 	cmake -S . -B build -DCUSTOM_FLAGS="-D DEBUG"
 	cmake --build build
 	./build/unit_test --gtest_filter=Interpretpath*
+
+.PHONY	: run_get_test
+run_get_test	:
+	#rm -rf build
+	cmake -S . -B build -DCUSTOM_FLAGS="-D DEBUG"
+	cmake --build build
+	./build/unit_test --gtest_filter=HttpResponseGET*
+
+
+.PHONY	: run_autoindex_test
+run_autoindex_test	:
+	#rm -rf build
+	cmake -S . -B build -DCUSTOM_FLAGS="-D DEBUG"
+	cmake --build build
+	./build/unit_test --gtest_filter=*AutoIndex*
+
+.PHONY	: run_cgi_test
+run_cgi_test	:
+	#rm -rf build
+	cmake -S . -B build -DCUSTOM_FLAGS="-D DEBUG"
+	cmake --build build
+	./build/unit_test --gtest_filter=*CGI*
+
 
 -include $(DEPS)
